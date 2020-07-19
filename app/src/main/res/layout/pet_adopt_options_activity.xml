@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.codewithjoey.learningmvvm.viewmodels.PetAdoptionViewModel" />
+
+        <variable
+            name="petAdoption"
+            type="com.codewithjoey.learningmvvm.data.models.PetAdoption" />
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".ui.activities.PetAdoptOptionsActivity">
+
+            <TextView
+                android:id="@+id/welcome_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/mont_regular"
+                android:text="Welcome, Samantha"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toTopOf="@+id/guideline3" />
+
+            <TextView
+                android:id="@+id/pet_size_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/mont_regular"
+                android:text="Which pet size do you prefer"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/gender_radio_group"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gender_radio_group" />
+
+            <com.xw.repo.BubbleSeekBar
+                android:id="@+id/bubbleSeekBar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="10dp"
+                app:bsb_auto_adjust_section_mark="true"
+                app:bsb_max="50.0"
+                app:bsb_min="0"
+                app:bsb_second_track_color="@color/colorPrimary"
+                app:bsb_section_count="10"
+                app:bsb_section_text_position="below_section_mark"
+                app:bsb_show_section_mark="true"
+                app:bsb_show_section_text="true"
+                app:bsb_show_thumb_text="true"
+                app:bsb_thumb_text_size="18sp"
+                app:bsb_touch_to_seek="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pet_size_text_view" />
+
+            <TextView
+                android:id="@+id/share_location_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/mont_regular"
+                android:text="Share your location to see pets near you"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/pet_size_text_view"
+                app:layout_constraintTop_toBottomOf="@+id/bubbleSeekBar" />
+
+            <Button
+                android:id="@+id/address_locator_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/gray_outline_button_background"
+                android:fontFamily="@font/mont_bold"
+                android:text="Select your location"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toStartOf="@+id/share_location_text_view"
+                app:layout_constraintTop_toBottomOf="@+id/share_location_text_view" />
+
+            <TextView
+                android:id="@+id/info_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/mont_bold"
+                android:text="We'll help you find the \nperfect pet for you :)"
+                android:textColor="@android:color/black"
+                android:textSize="22sp"
+                app:layout_constraintStart_toStartOf="@+id/welcome_text_view"
+                app:layout_constraintTop_toBottomOf="@+id/welcome_text_view" />
+
+            <TextView
+                android:id="@+id/pet_type_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:fontFamily="@font/mont_regular"
+                android:text="Which pet do you want to adopt?"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/info_text_view" />
+
+            <RadioGroup
+                android:id="@+id/pet_type_radio_group"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="@+id/pet_type_text_view"
+                app:layout_constraintTop_toBottomOf="@+id/pet_type_text_view">
+
+                <RadioButton
+                    android:id="@+id/cat_pet_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:checked="@{viewmodel.mPetAdoption.CAT.equals(viewmodel.mPetAdoption.petType)}"
+                    android:fontFamily="@font/mont_regular"
+                    android:onClick="@{() -> viewmodel.onPetTypeSelected(viewmodel.mPetAdoption.CAT)}"
+                    android:paddingHorizontal="10dp"
+                    android:text="@{viewmodel.mPetAdoption.CAT}"
+                    tools:text="Cat" />
+
+                <RadioButton
+                    android:id="@+id/dog_pet_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:checked="@{viewmodel.mPetAdoption.DOG.equals(viewmodel.mPetAdoption.petType)}"
+                    android:fontFamily="@font/mont_regular"
+                    android:onClick="@{() -> viewmodel.onPetTypeSelected(viewmodel.mPetAdoption.DOG)}"
+                    android:paddingHorizontal="10dp"
+                    android:text="@{viewmodel.mPetAdoption.DOG}"
+                    tools:text="Dog" />
+            </RadioGroup>
+
+            <RadioGroup
+                android:id="@+id/gender_radio_group"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="@+id/pet_gender_text_view"
+                app:layout_constraintTop_toBottomOf="@+id/pet_gender_text_view">
+
+                <RadioButton
+                    android:id="@+id/male_gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:checked="@{viewmodel.mPetAdoption.MALE.equals(viewmodel.mPetAdoption.gender)}"
+                    android:fontFamily="@font/mont_regular"
+                    android:onClick="@{() -> viewmodel.onGenderSelected(viewmodel.mPetAdoption.MALE)}"
+                    android:paddingHorizontal="10dp"
+                    android:text="@{viewmodel.mPetAdoption.MALE}"
+                    tools:text="Male" />
+
+                <RadioButton
+                    android:id="@+id/female_gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:checked="@{viewmodel.mPetAdoption.FEMALE.equals(viewmodel.mPetAdoption.gender)}"
+                    android:fontFamily="@font/mont_regular"
+                    android:onClick="@{() -> viewmodel.onGenderSelected(viewmodel.mPetAdoption.FEMALE)}"
+                    android:paddingHorizontal="10dp"
+                    android:text="@{viewmodel.mPetAdoption.FEMALE}"
+                    tools:text="Female" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/pet_gender_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/mont_regular"
+                android:text="Select pets gender"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/pet_type_radio_group"
+                app:layout_constraintTop_toBottomOf="@+id/pet_type_radio_group" />
+
+            <Button
+                android:id="@+id/find_my_pet_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/rounded_button_background"
+                android:fontFamily="@font/mont_bold"
+                android:onClick="@{() -> viewmodel.findMyPetButtonClickListener()}"
+                android:text="Find my pet"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/address_locator_button" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="16dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="395dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="20dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_end="599dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>
